@@ -1,0 +1,20 @@
+<nav class="navbar theme-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ path('dashboard_index') }}">
+            <picture>
+                <img src="{{ asset('images/logo_48.webp') }}" alt="IMS Logo">
+            </picture>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="ims-navbvar">
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="ims-navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="{{ path('inventory_index') }}">Inventory</a>
+            <a class="navbar-item" href="{{ path('supplier_index') }}">Suppliers</a>
+        </div>
+    </div>
+</nav>

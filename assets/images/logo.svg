@@ -1,0 +1,81 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 180 180"
+    width="180"
+    height="180"
+>
+    <defs>
+        <style>
+            .primary {
+            fill: #0a84c6;
+            }
+        </style>
+    </defs>
+
+    <!-- Barcode -->
+    <rect class="primary" x="8"  y="10" width="4" height="160"/>
+    <rect class="primary" x="16" y="10" width="2" height="160"/>
+    <rect class="primary" x="22" y="10" width="6" height="160"/>
+    <rect class="primary" x="32" y="10" width="3" height="160"/>
+    <rect class="primary" x="38" y="10" width="5" height="160"/>
+    <rect class="primary" x="46" y="10" width="2" height="160"/>
+    <rect class="primary" x="52" y="10" width="4" height="160"/>
+
+    <!-- POS body -->
+    <path
+        class="primary"
+        d="
+      M70 20
+      h80
+      a8 8 0 0 1 8 8
+      v92
+      a8 8 0 0 1 -8 8
+      h-20
+      v18
+      a6 6 0 0 1 -6 6
+      h-28
+      a6 6 0 0 1 -6 -6
+      v-18
+      h-20
+      a8 8 0 0 1 -8 -8
+      v-92
+      a8 8 0 0 1 8 -8
+      z
+    "
+    />
+
+    <!-- Screen -->
+    <rect
+        x="86"
+        y="32"
+        width="48"
+        height="26"
+        rx="3"
+        fill="#ffffff"
+    />
+
+    <!-- Card slot -->
+    <rect
+        x="98"
+        y="70"
+        width="24"
+        height="6"
+        rx="3"
+        fill="#ffffff"
+    />
+
+    <!-- Keypad -->
+    <g fill="#ffffff">
+        <rect x="90" y="86" width="10" height="6" rx="3"/>
+        <rect x="106" y="86" width="10" height="6" rx="3"/>
+        <rect x="122" y="86" width="10" height="6" rx="3"/>
+
+        <rect x="90" y="98" width="10" height="6" rx="3"/>
+        <rect x="106" y="98" width="10" height="6" rx="3"/>
+        <rect x="122" y="98" width="10" height="6" rx="3"/>
+
+        <rect x="90" y="110" width="10" height="6" rx="3"/>
+        <rect x="106" y="110" width="10" height="6" rx="3"/>
+        <rect x="122" y="110" width="10" height="6" rx="3"/>
+    </g>
+</svg>

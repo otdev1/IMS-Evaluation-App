@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% set title = 'Inventory' %}
+
+{% block body %}
+    <div class="is-flex is-justify-content-space-between my-3">
+        <h1 class="is-size-3">
+            Inventory List
+            {# <span id="list-count">(x)</span> #}
+            {# <span id="list-count">{{ dump(items)}}</span> #}
+            <span id="list-count">{{ items|length }}</span>
+        </h1>
+        <div>
+            <a href="{{ path('inventory_clear') }}" class="button is-danger">Clear List</a>
+            <a href="{{ path('inventory_generate') }}" class="button is-primary">Generate</a>
+        </div>
+    </div>
+    {% if items is empty %}
+        <div class="is-flex is-justify-content-center">
+            <h4 class="is-size-4 my-6">No inventory present</h4>
+        </div>
+    {% else %}
+        <table class="table table-striped is-hoverable is-striped is-fullwidth">
+            <thead>
+            <tr>
+                <th class="has-text-centered is-vcentered">Supplier</th>
+                <th class="has-text-centered is-vcentered">SKU</th>
+                <th class="has-text-centered is-vcentered">Description</th>
+                <th class="has-text-centered is-vcentered">Length (cm)</th>
+                <th class="has-text-centered is-vcentered">Width (cm)</th>
+                <th class="has-text-centered is-vcentered">Height (cm)</th>
+                <th class="has-text-centered is-vcentered">Weight (Kg)</th>
+                <th class="has-text-centered is-vcentered">Cost ($)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr class="item-entry">
+                    <td>{{ item.supplier }}</td>
+                    <td>{{ item.sku }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.lengthInCm }}</td>
+                    <td>{{ item.widthInCm }}</td>
+                    <td>{{ item.heightInCm }}</td>
+                    <td>{{ item.weightInKg }}</td>
+                    <td>{{ item.cost }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <div class="is-flex is-justify-content-end">
+        <a href="{{ path('dashboard_index') }}" class="button is-dark">Back</a>
+    </div>
+{% endblock %}

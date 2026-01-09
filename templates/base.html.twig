@@ -1,0 +1,27 @@
+{% if title is not defined %}
+    {% set title = 'Sample' %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{{ title }} - IMS{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset( 'assets/images/favicon-OX2PtV8.ico') }} "/>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block navbar %}
+            {% include '_navbar.html.twig' %}
+        {% endblock navbar %}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>
