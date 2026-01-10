@@ -3,3 +3,11 @@
 html, body, dashboard-container {
     height: 100%;
 }
+
+#weight-color {
+    color: #851a31;
+}
+
+#blue-text{
+    color: #054069;
+}

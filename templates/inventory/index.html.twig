@@ -5,9 +5,9 @@
     <div class="is-flex is-justify-content-space-between my-3">
         <h1 class="is-size-3">
             Inventory List
-            {# <span id="list-count">(x)</span> #}
+            <span id="list-count">(x)</span>
             {# <span id="list-count">{{ dump(items)}}</span> #}
-            <span id="list-count">{{ items|length }}</span>
+            {# <span id="list-count">{{ items|length }}</span> #}
         </h1>
         <div>
             <a href="{{ path('inventory_clear') }}" class="button is-danger">Clear List</a>
@@ -36,12 +36,24 @@
             {% for item in items %}
                 <tr class="item-entry">
                     <td>{{ item.supplier }}</td>
-                    <td>{{ item.sku }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.lengthInCm }}</td>
-                    <td>{{ item.widthInCm }}</td>
-                    <td>{{ item.heightInCm }}</td>
-                    <td>{{ item.weightInKg }}</td>
+                    <td><b>{{ item.sku }}</b></td>
+
+                    {% if 'aut' in item.description %}
+                        <td><b>{{ item.description }}</b></td>
+                    {% else %}
+                        <td>{{ item.description }}</td>
+                    {% endif %}
+
+                    <td id="blue-text">{{ item.lengthInCm }}</td>
+                    <td id="blue-text">{{ item.widthInCm }}</td>
+                    <td id="blue-text">{{ item.heightInCm }}</td>
+
+                    {% if item.weightInKg * 2.20462 > 50 %}
+                        <td id="weight-color">{{ item.weightInKg }}</td>
+                    {% else %}
+                        <td>{{ item.weightInKg }}</td>
+                    {% endif %}
+                    
                     <td>{{ item.cost }}</td>
                 </tr>
             {% endfor %}
