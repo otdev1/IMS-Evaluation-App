@@ -1,19 +1,3 @@
-//function updateInventoryCount() {
-    //console.warn('TODO implement inventory count');
-    
-// Call the function
-//fetchData('https://api.example.com/data');
-
-
-//}
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     if (document.URL.match(/inventory\//i)) {
-//         updateInventoryCount();
-//     }
-// });
-
-
 async function updateInventoryCount(url) {
   try 
   {
@@ -26,7 +10,6 @@ async function updateInventoryCount(url) {
 
     const itemcount = await response.json();
 
-    //const data = response;
     const listCountSpan = document.getElementById('list-count');
 
     if (listCountSpan) 
@@ -34,18 +17,12 @@ async function updateInventoryCount(url) {
         listCountSpan.textContent = itemcount.length;
     }
 
-    //console.log('Data retrieved:', data.length);
-
-    //return data;
-
   } 
   catch (error) 
   {
     console.error('Error fetching data:', error);
   }
 }
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     if (document.URL.match(/inventory\//i)) {

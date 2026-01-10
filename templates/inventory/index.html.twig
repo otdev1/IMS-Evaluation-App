@@ -6,8 +6,6 @@
         <h1 class="is-size-3">
             Inventory List
             <span id="list-count">(x)</span>
-            {# <span id="list-count">{{ dump(items)}}</span> #}
-            {# <span id="list-count">{{ items|length }}</span> #}
         </h1>
         <div>
             <a href="{{ path('inventory_clear') }}" class="button is-danger">Clear List</a>
@@ -49,7 +47,7 @@
                     <td id="blue-text">{{ item.heightInCm }}</td>
 
                     {% if item.weightInKg * 2.20462 > 50 %}
-                        <td id="weight-color">{{ item.weightInKg }}</td>
+                        <td id="invalid">{{ item.weightInKg }}</td>
                     {% else %}
                         <td>{{ item.weightInKg }}</td>
                     {% endif %}

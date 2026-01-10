@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SupplierRepository::class)]
 class Supplier
@@ -25,6 +26,22 @@ class Supplier
     #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'supplier')]
     private Collection $items;
 
+    #[ORM\Column(type: 'string', length: 8)]
+    #[Assert\Regex(
+        pattern: '/^\d{3}-\d{4}$/',
+        message: 'The phone number must be in the format xxx-xxxx.'
+    )]
+    private ?string $phone = null;
+
+    #[ORM\Column(type: 'string', length: 255, unique: true)] 
+    private ?string $email = null;
+
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private ?string $website = null;
+
+     #[ORM\Column(type: 'string', length: 255, unique: true)] 
+    private ?string $country = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -40,28 +57,48 @@ class Supplier
         return $this->id;
     }
 
-    public function setPhone(string $phone): static
+    public function setPhone(?string $phone): static
     {
-        // TODO update this
+        $this->phone = $phone;
         return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
     }
 
     public function setEmail(string $email): static
     {
-        // TODO update this
+        $this->email = $email;
         return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
     }
 
     public function setWebsite(string $website): static
     {
-        // TODO update this
+        $this->website = $website;
         return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
     }
 
     public function setCountry(string $country): static
     {
-        // TODO update this
+        $this->country = $country;
         return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
     }
 
     public function getName(): ?string
@@ -83,6 +120,25 @@ class Supplier
     public function setAddress(?string $address): static
     {
         $this->address = $address;
+        return $this;
+    }
+
+    public function addItem(Item $item): static 
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setSupplier($this); 
+        }
+        return $this;
+    }
+
+    public function removeItem(Item $item): static 
+    {
+        if ($this->items->removeElement($item)) {
+            if ($item->getSupplier() === $this) {
+                $item->setSupplier(null);
+            }
+        }
         return $this;
     }
 }

@@ -54,7 +54,8 @@ class Item
     #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2, nullable: true)]
     private ?string $cost = null;
 
-    #[ORM\ManyToOne(inversedBy: 'items')]
+    //#[ORM\ManyToOne(inversedBy: 'items')]
+    #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'items')]
     private ?Supplier $supplier = null;
 
     public function getId(): ?int

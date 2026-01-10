@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Factory\SupplierFactory;
 use App\Repository\ItemRepository;
+use App\Repository\SupplierRepository;
 use ErrorException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,22 +14,39 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SupplierController extends AbstractController
 {
     #[Route('/', name: 'supplier_index', methods: ['GET'])]
-    public function index(): Response
+    public function index(SupplierRepository $sRepo, ItemRepository $iRepo): Response
     {
-        throw new ErrorException("TODO: Implement this");
-    }
+        $items = $iRepo->fetchAll();
 
-    #[Route('/generate_list', name: 'supplier_generate', methods: ['GET'])]
-    public function generateItems(): Response
-    {
-        SupplierFactory::createMany(5);
-        return $this->redirectToRoute('supplier_index');
-    }
+        $suppliers = $sRepo->fetchAll();
 
-    #[Route('/clear_list', name: 'supplier_clear', methods: ['GET'])]
-    public function clearItems(ItemRepository $repo): Response
-    {
-        $repo->deleteAll();
-        return $this->redirectToRoute('supplier_index');
+        $supplier_info = [];
+
+        foreach($suppliers as $supplier)
+        {
+            foreach($items as $item)
+            {
+                if($supplier['name'] == $item['supplier'])
+                {
+                    if(!array_key_exists('items', $supplier))
+                    {
+                        $supplier['items'] = [];
+                        
+                        array_push($supplier['items'], (object) $item);
+                    }
+                    else
+                    {
+                        array_push($supplier['items'], (object) $item);
+                    }
+                    
+                }
+            }
+
+            array_push($supplier_info, $supplier);
+        }
+
+        return $this->render('suppliers/index.html.twig', [
+            'supplier_info' => $supplier_info
+        ]);
     }
 }

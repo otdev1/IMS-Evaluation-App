@@ -20,6 +20,20 @@ final class SupplierFactory extends PersistentObjectFactory
     #[Override]
     protected function defaults(): array|callable
     {
+
+        // $items = ItemFactory::createMany(5);
+
+        //$items = ItemFactory::new()->many(5);
+
+        // $itemsCount = count($items);
+
+        // $itemsCost = 0.00;
+
+        // foreach ($items as $item)
+        // {
+        //     $itemCost += $item->getCost();
+        // }
+
         return [
             'address' => self::faker()->address(),
             'name' => self::faker()->company(),
@@ -27,6 +41,7 @@ final class SupplierFactory extends PersistentObjectFactory
             'email' => self::faker()->email(),
             'website' => self::faker()->url(),
             'country' => self::faker()->country(),
+            //'items' => $items,
         ];
     }
 }

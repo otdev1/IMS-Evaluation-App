@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% set title = 'Suppliers' %}
+
+{% block body %}
+    <div class="is-flex is-justify-content-space-between my-3">
+        <h1 class="is-size-3">
+            Supplier List
+            <span id="supplier-count">(x)</span>
+        </h1>
+    </div>
+    {% if supplier_info is empty %}
+        <div class="is-flex is-justify-content-center">
+            <h4 class="is-size-4 my-6">No Suppliers present</h4>
+        </div>
+    {% else %}
+        <table class="table table-striped is-hoverable is-striped is-fullwidth">
+            <thead>
+            <tr>
+                <th class="has-text-centered is-vcentered">Name</th>
+                <th class="has-text-centered is-vcentered">Address</th>
+                <th class="has-text-centered is-vcentered">Phone Number</th>
+                <th class="has-text-centered is-vcentered">Email Address</th>
+                <th class="has-text-centered is-vcentered">Website</th>
+                <th class="has-text-centered is-vcentered">Country</th>
+                <th class="has-text-centered is-vcentered">Number of Items</th>
+                <th class="has-text-centered is-vcentered">Total Item Cost ($)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for supplier in supplier_info %}
+                {% set totalCost = 0 %}
+                <tr class="item-entry">
+                    <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.address }}</td>
+
+                    {% if supplier.phone matches '/^\\d{3}-\\d{4}$/' %}
+                        <td>{{ supplier.phone }}</td>
+                    {% else %}
+                        <td id="invalid">{{ supplier.phone }}</td>
+                    {% endif %}
+
+                    <td>{{ supplier.email }}</td>
+                    
+                    <td>{{ supplier.website }}</td>
+                
+                    <td>{{ supplier.country}}</td>
+
+                    <td>{{ supplier.items|default([])|length }}</td>
+
+                    {% for item in supplier.items|default([]) %}
+                        <td>{% set totalCost = totalCost + item.cost|default(0) %}</td>
+                    {% endfor %}
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <div class="is-flex is-justify-content-end">
+        <a href="{{ path('dashboard_index') }}" class="button is-dark">Back</a>
+    </div>
+{% endblock %}
